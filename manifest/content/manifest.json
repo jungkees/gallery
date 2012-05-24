@@ -1,0 +1,27 @@
+{
+  "name": "Gallery Service - Content",
+  "version": "1",
+  "icons": { "128": "G.png" },
+  "app": {
+    "urls": [
+      "http://gallery.no.de/pickContent"
+    ],
+    "launch": {
+      "web_url": "http://gallery.no.de/pickContent"
+    }
+  },
+  "permissions": [
+    "unlimitedStorage",
+    "notifications"
+  ],
+  "intents": {
+    "http://webintents.org/pick": [
+      {
+        "title": "Gallery Service - Content", 
+        "type": ["image/*"]        
+      }
+    ]
+  },
+  "manifest_version": 1
+  
+}

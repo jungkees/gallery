@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8">
+<title>Gallery Demo</title>
+<link rel="stylesheet" type="text/css" href="./css/main.css" />
+<link type="text/css" href="./css/smoothness/jquery-ui-1.8.20.custom.css" rel="Stylesheet" />
+<script src="./js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="./js/jquery-ui-1.8.20.custom.min.js"></script>
+<script>
+  $(function() {
+    $( "#tabs" ).tabs();
+  });
+	
+  window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
+  window.URL = window.URL || window.webkitURL || window.mozURL;
+  
+  var Intent = window.Intent || window.WebKitIntent;                          
+  var startActivity = window.navigator.startActivity || window.navigator.webkitStartActivity;
+  window.intent = window.intent || window.webkitIntent;
+  
+  var startTime, endTime;
+  var dataObjContent, dataObjectURL;
+  
+  function showPopupContent(index) {
+    var bgContent=document.getElementById("bgContent");
+    bgContent.style.display = "block";
+				
+    var popupContent = document.getElementById("popupContent");
+        
+    var originalImageContent = document.getElementById("originalImageContent");
+    
+    originalImageContent.src = "data:image/jpeg, " + dataObjContent[index].content;
+    var metaDataContent = document.getElementById("metaDataContent");
+    metaDataContent.innerHTML = ['<br>', '<b>Title</b>: <em>', dataObjContent[index].title,
+                     '</em><br>', '<b>Description</b>: <em>', dataObjContent[index].description,
+                     '</em><br>', '<b>URL</b>: <em>', dataObjContent[index].url,
+                     '</em><br>', '<b>File name</b>: <em>', dataObjContent[index].filename,
+                     '</em><br>', '<b>Author</b>: <em>', dataObjContent[index].author,
+                     '</em><br>', '<b>Date</b>: <em>', dataObjContent[index].date,
+                     '</em><br>', '<b>Location</b>: <em>', dataObjContent[index].location,
+                     '</em><br>', '<b>Copyright</b>: <em>', dataObjContent[index].copyright,
+                     '</em><br>', '<b>Tags</b>: <em>', dataObjContent[index].tag, '</em>'
+                     ].join('');
+    popupContent.style.display = "block";
+  }
+  
+  function showPopupURL(index) {
+    var bgURL=document.getElementById("bgURL");
+    bgURL.style.display = "block";
+				
+    var popupURL = document.getElementById("popupURL");
+        
+    var originalImageURL = document.getElementById("originalImageURL");
+    
+    originalImageURL.src = dataObjURL[index].url;
+    var metaDataURL = document.getElementById("metaDataURL");
+    metaDataURL.innerHTML = ['<br>', '<b>Title</b>: <em>', dataObjURL[index].title,
+                     '</em><br>', '<b>Description</b>: <em>', dataObjURL[index].description,
+                     '</em><br>', '<b>URL</b>: <em>', dataObjURL[index].url,
+                     '</em><br>', '<b>File name</b>: <em>', dataObjURL[index].filename,
+                     '</em><br>', '<b>Author</b>: <em>', dataObjURL[index].author,
+                     '</em><br>', '<b>Date</b>: <em>', dataObjURL[index].date,
+                     '</em><br>', '<b>Location</b>: <em>', dataObjURL[index].location,
+                     '</em><br>', '<b>Copyright</b>: <em>', dataObjURL[index].copyright,
+                     '</em><br>', '<b>Tags</b>: <em>', dataObjURL[index].tag, '</em>'
+                     ].join('');
+    popupURL.style.display = "block";
+  }
+
+  function hidePopupContent() {
+    bgContent.style.display = "none";
+    				
+    popupContent.style.background = "#fff";
+    popupContent.style.display = "none";
+  }
+  
+  function hidePopupURL() {
+    bgURL.style.display = "none";
+				
+    popupURL.style.background = "#fff";
+    popupURL.style.display = "none";
+  }
+  
+  function onResponseContent(data) {
+    dataObjContent = JSON.parse(data);
+    
+    for (var i = 0; i < dataObjContent.length; i++) {
+      var reader = new FileReader();
+      console.log(dataObjContent[i].content.length);
+      var bb = new BlobBuilder();
+      bb.append(dataObjContent[i].content);
+      var b = bb.getBlob("image/jpeg");
+      
+      reader.onload = (function(index) {
+        return function(e) {  
+          var span = document.createElement('span');
+          span.innerHTML = ['<img class="thumb" src="data:image/jpeg,', e.target.result,
+                           '" title="', dataObjContent[index].title, '" onclick="showPopupContent(', index, ');" />'].join('');
+          document.getElementById('listContent').insertBefore(span, null);
+        };
+      })(i);
+      
+      reader.readAsBinaryString(b);
+    }
+    
+    endTime = new Date().getTime();
+    
+    var str = (data.length / 1000000).toString();
+    document.getElementById("elapsedTimeContent").innerHTML = ['Elapsed Time: ' + (endTime - startTime) / 1000 + ' secs'];
+    document.getElementById("numberOfFileContent").innerHTML = ['Number of Files: ' + dataObjContent.length + ' images'];
+    document.getElementById("totalByteContent").innerHTML = ['Total Bytes Transferred: ' + str.substring(0, str.length-3) + ' MBytes'];
+  }
+  
+  function onResponseURL(data) {
+    dataObjURL = JSON.parse(data);
+
+    for (var i = 0; i < dataObjURL.length; i++) {
+      var span = document.createElement('span');
+      span.innerHTML = ['<img class="thumb" src="', dataObjURL[i].url,
+                        '" title="', dataObjURL[i].title, '" onclick="showPopupURL(', i, ');" />'].join('');
+      document.getElementById('listURL').insertBefore(span, null);
+    }
+    
+    endTime = new Date().getTime();
+    
+    var str = (data.length / 1000000).toString();
+    document.getElementById("elapsedTimeURL").innerHTML = ['Elapsed Time: ' + (endTime - startTime) / 1000 + ' secs'];
+    document.getElementById("numberOfFileURL").innerHTML = ['Number of Files: ' + dataObjURL.length + ' images'];
+    document.getElementById("totalByteURL").innerHTML = ['Total Bytes Transferred: ' + str.substring(0, str.length-3) + ' MBytes'];
+  }
+
+  function pickContent() {    
+    var intent = new Intent("http://webintents.org/pick", "image/jpeg", "dataUri://");
+    
+    startTime = new Date().getTime();
+    window.navigator.webkitStartActivity(intent, onResponseContent);
+  }
+  
+  function pickURL() {    
+    var intent = new Intent("http://webintents.org/pick", "image/jpeg", "dataUri://");
+    
+    startTime = new Date().getTime();
+    window.navigator.webkitStartActivity(intent, onResponseURL);
+  }
+  
+  function resetContent() {
+    document.getElementById("elapsedTimeContent").innerHTML = ['Elapsed Time: '];
+    document.getElementById("numberOfFileContent").innerHTML = ['Number of Files: '];
+    document.getElementById("totalByteContent").innerHTML = ['Total Bytes Transferred: '];
+    document.getElementById('listContent').innerHTML = '';
+  }
+  
+  function resetURL() {
+    document.getElementById("elapsedTimeURL").innerHTML = ['Elapsed Time: '];
+    document.getElementById("numberOfFileURL").innerHTML = ['Number of Files: '];
+    document.getElementById("totalByteURL").innerHTML = ['Total Bytes Transferred: '];
+    document.getElementById('listURL').innerHTML = '';
+  }
+</script>
+</head>
+<body>
+<header id="title">
+Gallery Client
+</header>
+<div class="demo">
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Pick Content</a></li>
+    <li><a href="#tabs-2">Pick URL</a></li>
+  </ul>
+  <div id="tabs-1">
+    <div>
+      <label id="elapsedTimeContent">Elapsed Time: </label><br>
+      <label id="numberOfFileContent">Number of Files: </label><br>
+      <label id="totalByteContent">Total Bytes Transferred: </label>
+    </div>
+    <div>
+      <input type="button" value="Pick" onclick="pickContent();" />
+      <input type="button" value="Reset" onclick="resetContent();" />
+    </div>
+    <div id="wrapContent">
+      <output id="listContent"></output>
+      <div id="bgContent"></div>
+      <div id="popupContent" onclick="hidePopupContent()">
+        <img id="originalImageContent" alt="Original Image" />
+        <span id="metaDataContent"></span>
+      </div>  
+    </div>
+  </div>
+  <div id="tabs-2">
+    <div>
+      <label id="elapsedTimeURL">Elapsed Time: </label><br>
+      <label id="numberOfFileURL">Number of Files: </label><br>
+      <label id="totalByteURL">Total Bytes Transferred: </label>
+    </div>
+    <div>
+      <input type="button" value="Pick" onclick="pickURL();" />
+      <input type="button" value="Reset" onclick="resetURL();" />
+    </div>
+    <div id="wrapURL">
+      <output id="listURL"></output>
+      <div id="bgURL"></div>
+      <div id="popupURL" onclick="hidePopupURL()">
+        <img id="originalImageURL" alt="close" />
+        <span id="metaDataURL"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<footer><center>&copy; 2012 Jungkee Song. All rights reserved.</center></footer>
+</body>
+</html>

@@ -1,0 +1,86 @@
+.thumb {
+  height: 75px;
+  border: 1px solid #000;
+  margin: 10px 5px 0 0;
+  cursor: pointer;
+}
+  
+body {
+  background:#fefefe;
+  margin:0;
+  padding:0;
+  color:#666;
+}
+
+#title{
+  color:#333; 
+  font-weight:bold; 
+  font-size:2em; 
+  padding:5px;
+}
+
+#tabs {
+  font-size:0.8em;
+}
+
+#wrapContent {
+  margin: auto;
+  text-align: center;
+  position: relative;
+}
+
+#wrapURL {
+  margin: auto;
+  text-align: center;
+  position: relative;
+}
+
+#bgContent {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: #000;
+  left: 0;
+  top: 0;
+  opacity: 0.5;
+				
+  display:none;
+}
+
+#bgURL {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: #000;
+  left: 0;
+  top: 0;
+  opacity: 0.5;
+				
+  display:none;
+}
+			
+#popupContent {
+  font-size:1.0em;
+  text-align: left;
+  border: 10px solid #fff;
+  background:#fff; 
+  position: absolute;
+  left:20%;
+  top: 0%;
+  cursor: pointer;
+				
+  display: none;
+}
+
+#popupURL {
+  font-size:1.0em;
+  text-align: left;
+  border: 10px solid #fff;
+  background:#fff; 
+  position: absolute;
+  left:20%;
+  top: 0%;
+  cursor: pointer;
+				
+  display: none;
+}
