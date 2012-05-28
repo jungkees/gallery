@@ -33,8 +33,9 @@ How to run
      
 2. Save (a) at your local storage
 
-   * manifest.json and G.png should be stored at the same folder.
-   * Do the same for (b) (at different folder)
+   1) manifest.json and G.png should be stored at the same folder.
+   
+   Do the same for (b) (at different folder)
    
 3. Register Intents (a) and (b) by: 
 
