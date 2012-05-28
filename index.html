@@ -166,29 +166,10 @@ Gallery Client
 <div class="demo">
 <div id="tabs">
   <ul>
-    <li><a href="#tabs-1">Pick Content</a></li>
-    <li><a href="#tabs-2">Pick URL</a></li>
+    <li><a href="#tabs-1">Pick URL</a></li>
+    <li><a href="#tabs-2">Pick Content</a></li>
   </ul>
   <div id="tabs-1">
-    <div>
-      <label id="elapsedTimeContent">Elapsed Time: </label><br>
-      <label id="numberOfFileContent">Number of Files: </label><br>
-      <label id="totalByteContent">Total Bytes Transferred: </label>
-    </div>
-    <div>
-      <input type="button" value="Pick" onclick="pickContent();" />
-      <input type="button" value="Reset" onclick="resetContent();" />
-    </div>
-    <div id="wrapContent">
-      <output id="listContent"></output>
-      <div id="bgContent"></div>
-      <div id="popupContent" onclick="hidePopupContent()">
-        <img id="originalImageContent" alt="Original Image" />
-        <span id="metaDataContent"></span>
-      </div>  
-    </div>
-  </div>
-  <div id="tabs-2">
     <div>
       <label id="elapsedTimeURL">Elapsed Time: </label><br>
       <label id="numberOfFileURL">Number of Files: </label><br>
@@ -207,7 +188,26 @@ Gallery Client
       </div>
     </div>
   </div>
+  <div id="tabs-2">
+    <div>
+      <label id="elapsedTimeContent">Elapsed Time: </label><br>
+      <label id="numberOfFileContent">Number of Files: </label><br>
+      <label id="totalByteContent">Total Bytes Transferred: </label>
+    </div>
+    <div>
+      <input type="button" value="Pick" onclick="pickContent();" />
+      <input type="button" value="Reset" onclick="resetContent();" />
+    </div>
+    <div id="wrapContent">
+      <output id="listContent"></output>
+      <div id="bgContent"></div>
+      <div id="popupContent" onclick="hidePopupContent()">
+        <img id="originalImageContent" alt="Original Image" />
+        <span id="metaDataContent"></span>
+      </div>  
+    </div>
+  </div>
 </div>
-<footer><center>&copy; 2012 Jungkee Song. All rights reserved.</center></footer>
+<footer><center>W3C Gallery API demo by Jungkee Song</center></footer>
 </body>
 </html>
