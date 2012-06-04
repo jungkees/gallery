@@ -19,6 +19,10 @@ body {
   padding:5px;
 }
 
+.demo {
+  font-size:0.9em;	
+}
+
 #tabs {
   font-size:0.8em;
 }
