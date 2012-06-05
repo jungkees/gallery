@@ -4,10 +4,10 @@
   "icons": { "128": "G.png" },
   "app": {
     "urls": [
-      "http://gallery.nodester.com/pickContent"
+      "http://gallery.no.de/pickContent"
     ],
     "launch": {
-      "web_url": "http://gallery.nodester.com/pickContent"
+      "web_url": "http://gallery.no.de/pickContent"
     }
   },
   "permissions": [
