@@ -1,5 +1,11 @@
 Gallery API demo
 =======
+Notice
+--------
+[05-06-2012 23:10 KST] Due to a service hosting issue, node server was changed from nodester.com to no.de. 
+Accordingly, the manifest files have been changed. In the case that you already registered an intent with nodester.com, 
+please register a new intent with the manifest files in the repo again. (see How to run section.)
+
 Overview
 --------
 This repo contains the source code for a demo to discuss on the Gallery API proposed at W3C DAP WG.
